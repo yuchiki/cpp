@@ -46,4 +46,4 @@
 #define ctrue(x) 1
 
 
-add(3, 5)
+Three plus five is add(3,5)
