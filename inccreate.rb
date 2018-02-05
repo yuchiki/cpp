@@ -1,8 +1,10 @@
-N = 100
+N = 1000
 
 (0..N).each do |i|
   puts "#define inc_#{i} #{i + 1}"
 end
+
+puts '#define dec_0 0'
 
 (1..N).each do |i|
   puts "#define dec_#{i} #{i - 1}"
