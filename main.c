@@ -15,17 +15,12 @@
 #define if_1(x, y) x
 #define if_0(x, y) y
 
-#define fst(x) fst_inner x
-#define fst_inner(x, y) x
-#define snd(x) snd_inner x
-#define snd_inner(x, y) y
-
 #define third(x) third_inner x
 #define third_inner(x, y, z) z
 
 #define while_filter(p, f, v) (p, f, pif(p(v))(f(v), v))
 #define while_filter_compressed(tpl) while_filter tpl
-#define while (p, f, v) third(rec(while_filter_compressed, (p, f, v)))
+#define while(p, f, v) third(rec(while_filter_compressed, (p, f, v)))
 
 #include "incdec.c"
 #define inc(i) inc_##i
@@ -39,11 +34,15 @@
 
 #define for_filter(i, f, v) (dec(i), f, pif(is_pos(i))(f(i, v), v))
 #define for_filter_compressed(tpl) for_filter tpl
-#define for (i, f, v) third(rec(for_filter_compressed, (i, f, v)))
+#define for(i, f, v) third(rec(for_filter_compressed, (i, f, v)))
 
 #define add(x, y) rep(x, inc, y)
 
-#define ctrue(x) 1
+#if __INCLUDE_LEVEL__ <= 20
+    #if 10 <= __INCLUDE_LEVEL__
+        __INCLUDE_LEVEL__ plus 5 is add(__INCLUDE_LEVEL__,5)
+    #endif
+    #include __FILE__
+#endif
 
-
-Three plus five is add(3,5)
+//for(10, add, 3) doesn't work (>_<)
